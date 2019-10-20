@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[13]:
-
 
 import pandas as pd
 import numpy as np
@@ -18,37 +13,29 @@ import wrangle
 import split_scale
 
 
-df = wrangle.wrangle_zillow()
+# df = wrangle.wrangle_zillow()
 
-train, test  = split_scale.split_my_data(df, train_ratio = .8, random_seed = 123)
+# train, test  = split_scale.split_my_data(df, train_ratio = .8, random_seed = 123)
 
-
-# In[14]:
 
 
 # Using Pearson Correlation
 
-sns.set_style('whitegrid')
-plt.figure(figsize=(6,5))
-cor = train.corr()
-sns.heatmap(cor, annot = True, cmap=plt.cm.Reds)
+# sns.set_style('whitegrid')
+# plt.figure(figsize=(6,5))
+# cor = train.corr()
+# sns.heatmap(cor, annot = True, cmap=plt.cm.Reds)
 
-# To view just the correlations of each attribute with the target variable, and filter down to only those above a certain value:
-# Correlation with output variable
-cor_target = abs(cor["total_charges"])
+# # To view just the correlations of each attribute with the target variable, and filter down to only those above a certain value:
+# # Correlation with output variable
+# cor_target = abs(cor["total_charges"])
 
-#Selecting highly correlated features
-relevant_features = cor_target[cor_target>0.5]
-
-
-# In[2]:
+# #Selecting highly correlated features
+# relevant_features = cor_target[cor_target>0.5]
 
 
 # Write a function, select_kbest_not_scaled() that takes X_train, y_train and k as input
 # (X_train and y_train should not be scaled!) and returns a list of the top k features.
-
-
-# In[9]:
 
 
 from sklearn.feature_selection import SelectKBest, f_regression
@@ -61,14 +48,9 @@ def select_kbest_freg_unscaled(X_train, y_train, k):
     return freg_feature
 
 
-# In[ ]:
-
-
 # Write a function, select_kbest_freg() that takes X_train, y_train (scaled) and k as input 
 # and returns a list of the top k features.
 
-
-# In[ ]:
 
 
 def select_kbest_freg_scaled(X_train, y_train, k):
@@ -83,14 +65,9 @@ def select_kbest_freg_scaled(X_train, y_train, k):
     return f_feature
 
 
-# In[ ]:
-
-
 # Write a function, ols_backward_elimination() that takes X_train and y_train (scaled) as input 
 # and returns selected features based on the ols backwards elimination method.
 
-
-# In[12]:
 
 
 import statsmodels.api as sm
@@ -116,14 +93,10 @@ def ols_backward_elimination(X_train, y_train):
     return selected_features_BE
 
 
-# In[ ]:
-
 
 # Write a function, lasso_cv_coef() that takes X_train and y_train as input and returns the coefficients 
 # for each feature, along with a plot of the features and their weights.
 
-
-# In[ ]:
 
 
 from sklearn.linear_model import LassoCV
@@ -140,8 +113,6 @@ def lasso_cv_coef(X_train, y_train):
     return imp_coef
 
 
-# In[ ]:
-
 
 # Write 3 functions, the first computes the number of optimum features (n) using rfe,
 # the second takes n as input and returns the top n features, 
@@ -150,14 +121,11 @@ def lasso_cv_coef(X_train, y_train):
 # that computes the optimum number of features (n) and returns the top n features.
 
 
-# In[ ]:
 
 
 from sklearn.linear_model import LinearRegression
 from sklearn.feature_selection import RFE
 
-
-# In[ ]:
 
 
 # Write 3 functions, the first computes the number of optimum features (n) using rfe
@@ -193,8 +161,6 @@ def num_optimal_features(X_train, y_train, X_test, y_test):
     return number_of_features, score
 
 
-# In[ ]:
-
 
 # the second takes n as input and returns the top n features, 
 
@@ -223,7 +189,7 @@ def optimal_features(n):
     return selected_features_rfe, X_train_rfe, X_test_rfe
 
 
-# In[5]:
+
 
 
 # and the third takes the list of the top n features as input
@@ -235,7 +201,7 @@ def n_to_X_train_and_test(features):
     return new_X_train, new_X_test
 
 
-# In[6]:
+
 
 
 # Recursive_feature_elimination() that computes the optimum number of features (n) and returns the top n features.
@@ -244,7 +210,7 @@ def recursive_feature_elimination(X_train, y_train, X_test, y_test):
     return optimal_features(num_optimal_features(X_train, y_train, X_test, y_test))
 
 
-# In[ ]:
+
 
 
 
