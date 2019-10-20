@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
 
 get_ipython().run_line_magic('matplotlib', 'inline')
 import numpy as np
@@ -11,12 +6,6 @@ import matplotlib.pyplot as plt
 import env
 from scipy import stats
 import csv
-
-np.random.seed(29)
-
-
-# In[ ]:
-
 
 def get_db_url(db):
     return f'mysql+pymysql://{env.user}:{env.password}@{env.host}/{db}'
@@ -53,14 +42,6 @@ def get_data_from_mysql():
     return df    
    
     
-df = get_data_from_mysql()
-
-df.head()
-
-
-# In[ ]:
-
-
 def clean_data(df):
     df = df.dropna()
     df = df[df.bathroom_count > 0]
@@ -68,59 +49,9 @@ def clean_data(df):
     return df
 
 
-# In[ ]:
-
-
 def wrangle_zillow():
     df = get_data_from_mysql()
     df = clean_data(df)
     return df
-
-
-# In[24]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[27]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[67]:
-
-
-
-
-
-# In[34]:
-
-
-
-
-
-# In[ ]:
-
-
-wrangle_zillow()
-
-
-# In[ ]:
-
-
 
 
